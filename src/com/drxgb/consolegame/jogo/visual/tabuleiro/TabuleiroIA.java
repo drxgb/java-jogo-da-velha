@@ -10,9 +10,9 @@
 
 package com.drxgb.consolegame.jogo.visual.tabuleiro;
 
+import com.drxgb.consolegame.jogo.Jogador;
 import com.drxgb.consolegame.jogo.Jogo;
 import com.drxgb.consolegame.jogo.ia.IA;
-import com.drxgb.consolegame.jogo.visual.Posicao;
 
 public abstract class TabuleiroIA extends IA {
 	
@@ -24,10 +24,11 @@ public abstract class TabuleiroIA extends IA {
 
 	/**
 	 * Instancia uma nova IA de um jogo de tabuleiro.
-	 * @param jogo -> instância de <code>Jogo</code>
+	 * @param jogo -> instância do <code>Jogo</code>
+	 * @param jogador -> instância de <code>Jogador</code>
 	 */
-	public TabuleiroIA(Jogo jogo) {
-		super(jogo);
+	public TabuleiroIA(Jogo jogo, Jogador jogador) {
+		super(jogo, jogador);
 	}
 
 	/*
@@ -39,8 +40,8 @@ public abstract class TabuleiroIA extends IA {
 	/**
 	 * Fará uma análise de todo o tabuleiro antes
 	 * de realizar uma ação.
-	 * @return uma <code>Posicao</code> onde a IA fará uma ação
+	 * @return uma <code>PosicaoTabuleiro</code> onde a IA fará uma ação
 	 */
-	public abstract Posicao analisaTabuleiro();	
+	public abstract PosicaoTabuleiro analisaTabuleiro();	
 	
 }

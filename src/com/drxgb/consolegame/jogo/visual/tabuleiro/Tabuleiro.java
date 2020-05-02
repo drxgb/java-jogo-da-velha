@@ -124,6 +124,27 @@ public abstract class Tabuleiro {
 		return this.temPeca(posicao.getX(), posicao.getY());
 	}
 	
+	/**
+	 * Verifica se posição solicitada existe dentro do tabuleiro.
+	 * @param x -> posição X solicitada
+	 * @param y -> posição Y solicitada
+	 * @return a resposta se esta posição existe ou não
+	 */
+	public boolean posicaoExiste(int x, int y) {
+		return (x >= 0) && (y >= 0) && (x < this.comprimento) && (y < this.comprimento);
+	}
+	
+	/**
+	 * <i>@Sobrecarga</i><br>
+	 * Verifica se posição solicitada existe dentro do tabuleiro.
+	 * @param x -> posição X solicitada
+	 * @param y -> posição Y solicitada
+	 * @return a resposta se esta posição existe ou não
+	 */
+	public boolean posicaoExiste(Posicao posicao) {
+		return this.posicaoExiste(posicao.getX(), posicao.getY());
+	}
+	
 	/*
 	 * ===========================================================
 	 * 				*** MÉTODOS PROTEGIDOS ***
@@ -158,6 +179,10 @@ public abstract class Tabuleiro {
 
 	public int getLargura() {
 		return largura;
+	}
+	
+	public void setPecas(Peca[][] pecas) {
+		this.pecas = pecas;
 	}
 
 	public void setComprimento(int comprimento) {

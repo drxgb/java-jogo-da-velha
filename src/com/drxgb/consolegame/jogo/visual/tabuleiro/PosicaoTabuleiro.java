@@ -37,6 +37,30 @@ public class PosicaoTabuleiro extends Posicao {
 		super(x, y);
 	}	
 	
+	/**
+	 * <i>@{Sobrecarga}</i>
+	 * Instancia uma nova posição no tabuleiro
+	 * @param peca -> instância de <code>Peca</code>
+	 * que ocupará esta posição
+	 * @param x -> coordenada x do tabuleiro
+	 * @param y -> coordenada y do tabuleiro
+	 */
+	public PosicaoTabuleiro(Peca peca, int x, int y) {
+		this(x, y);
+		this.peca = peca;
+	}
+	
+	/**
+	 * <i>@{Sobrecarga}</i>
+	 * Instancia uma nova posição no tabuleiro.
+	 * @param peca -> instância de <code>Peca</code>
+	 * que ocupará esta posição
+	 * @param x -> posição diagonal do tabuleiro
+	 */
+	public PosicaoTabuleiro(Peca peca, int d) {
+		this(peca, d, d);
+	}
+	
 	/*
 	 * ===========================================================
 	 * 				*** GETTERS E SETTERS ***

@@ -11,10 +11,15 @@
 
 package com.drxgb.consolegame.jogo.visual.tabuleiro.jogodavelha;
 
+import com.drxgb.consolegame.jogo.Jogador;
 import com.drxgb.consolegame.jogo.Jogo;
+import com.drxgb.consolegame.jogo.JogoException;
+import com.drxgb.consolegame.jogo.ia.IA;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.JogadorTabuleiro;
+import com.drxgb.consolegame.jogo.visual.tabuleiro.JogoTabuleiro;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.PosicaoTabuleiro;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.Tabuleiro;
+import com.drxgb.consolegame.jogo.visual.tabuleiro.TabuleiroIA;
 
 public class JogadorJogoDaVelha extends JogadorTabuleiro {
 	
@@ -98,8 +103,14 @@ public class JogadorJogoDaVelha extends JogadorTabuleiro {
 	@Override
 	public void agir(Jogo jogo) {		
 		if(this.isIA()) {
-			// TODO implementar ações da IA
-		}		
+			IA ia = new JogoDaVelhaIA(jogo, this);
+			this.marcar(
+					((TabuleiroIA) ia).analisaTabuleiro(),
+					((JogoTabuleiro) jogo).getTabuleiro()
+				);
+		} else {
+			throw new JogoException("Este jogador não tem autorização para realizar ações de uma IA.");
+		}
 	}
 	
 	/*

@@ -9,6 +9,7 @@
 
 package com.drxgb.consolegame.jogo.ia;
 
+import com.drxgb.consolegame.jogo.Jogador;
 import com.drxgb.consolegame.jogo.Jogo;
 
 public abstract class IA {
@@ -19,7 +20,8 @@ public abstract class IA {
 	 * ===========================================================
 	 */
 	
-	private Jogo jogo;
+	protected Jogo jogo;
+	protected Jogador jogador;
 	
 	 
 	/*
@@ -28,8 +30,14 @@ public abstract class IA {
 	 * ===========================================================
 	 */	
 	
-	public IA(Jogo jogo) {
+	/**
+	 * Instancia uma nova Inteligência Artificial (IA)
+	 * @param jogo -> instância de <code>Jogo</code>
+	 * @param jogador -> instância de <code>Jogador</code>
+	 */
+	public IA(Jogo jogo, Jogador jogador) {
 		this.jogo = jogo;
+		this.jogador = jogador;
 	}
 	
 	/*

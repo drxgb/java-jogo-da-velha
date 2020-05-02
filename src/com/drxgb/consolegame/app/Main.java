@@ -6,7 +6,7 @@
  * <p>Classe responsavel por rodar a aplicação</p>
  * 
  * @author Dr.XGB
- * @version 1.0
+ * @version 1.1
  * @see https://github.com/drxgb/java-jogo-da-velha.git
  */
 
@@ -19,6 +19,7 @@ import com.drxgb.consolegame.gui.console.JogoDaVelhaGUI;
 import com.drxgb.consolegame.gui.console.TabuleiroGUI;
 import com.drxgb.consolegame.gui.console.VisualGUI;
 import com.drxgb.consolegame.jogo.Jogo;
+import com.drxgb.consolegame.jogo.JogoException;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.JogoTabuleiro;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.PosicaoTabuleiro;
 import com.drxgb.consolegame.jogo.visual.tabuleiro.Tabuleiro;
@@ -40,8 +41,8 @@ public class Main {
 		gui.titulo();
 		
 		// Registrar Jogadores
-		jogo.registraJogador(new JogadorJogoDaVelha(gui.insereNome(sc), Marca.O));
-		jogo.registraJogador(new JogadorJogoDaVelha(false, Marca.X));		
+		jogo.registraJogador(new JogadorJogoDaVelha(gui.insereNome(sc), false, Marca.O));	 // Jogador
+		jogo.registraJogador(new JogadorJogoDaVelha(Marca.X));								// IA		
 		
 		// Quantidade de casas
 		((JogoTabuleiro) jogo).setTabuleiro(new TabuleiroJogoDaVelha(((JogoDaVelhaGUI) gui).insereCasas(sc)));
@@ -64,7 +65,17 @@ public class Main {
 					
 					// Marcar no tabuleiro
 					JogadorJogoDaVelha jogador = (JogadorJogoDaVelha) ((JogoTabuleiro) jogo).getVez();
-					jogador.marcar((PosicaoTabuleiro) ((VisualGUI) gui).escolhePosicao(sc), ((JogoTabuleiro) jogo).getTabuleiro());
+					if(jogador.isIA()) {
+						// IA
+						gui.pause(1);
+						jogador.agir(jogo);
+					} else {
+						// Jogador humano
+						jogador.marcar(
+								(PosicaoTabuleiro) ((VisualGUI) gui).escolhePosicao(sc),
+								((JogoTabuleiro) jogo).getTabuleiro()
+							);
+					}
 					
 					// Analisar se a partida acabou
 					if(((JogoTabuleiro) jogo).jogadaFinal()) {
@@ -91,6 +102,8 @@ public class Main {
 				sb.append(maxColuna);
 				sb.append(tabuleiro.getLargura() - 1);
 				gui.escreveErro(sb.toString());
+			} catch(JogoException e) {
+				gui.escreveErro(e.getMessage());
 			}
 		}		
 		
@@ -106,6 +119,11 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Apaga todo o conteúdo da tela e
+	 * reinsere a interface do jogo. 
+	 * @param gui -> interface gráfica
+	 */
 	private static void atualizaTela(GUI gui) {
 		gui.limpaTela();
 		gui.titulo();
